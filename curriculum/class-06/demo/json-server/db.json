@@ -1,4 +1,10 @@
 {
-  "categories": [],
+  "categories": [
+    {
+      "name": "yellowish",
+      "age": "30",
+      "id": 2
+    }
+  ],
   "products": []
 }

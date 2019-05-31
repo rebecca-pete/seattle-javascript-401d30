@@ -14,6 +14,11 @@ app.use(express.json());
 // Here, we define some middlware called "logger" that we imported in.
 // It will run on all routes (and you'll see it's logs in the console)
 app.use(logger);
+// app.use((req, res, next) => {
+//   console.log('middleware logging things');
+//   console.log(req.host);
+//   next();
+// });
 
 // Here, we create a simple middleware that logs something and moves on
 let dumbMW = (req,res,next) => {
