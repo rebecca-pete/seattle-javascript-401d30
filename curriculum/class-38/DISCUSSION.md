@@ -1,4 +1,4 @@
-# Reading: Hooks API
+# Reading: Remote APIs
 
 Below is a collection of resources of varying types and lengths which describe the topics for the upcoming lecture.  As you go through the readings each day, you'll find that certain sources work better for your reading and learning style. Focus on those, but also branch out and consume the material in different forms.
 
@@ -10,21 +10,15 @@ Wiki Entry Ideas:
 * Notes in outline form
 
 ## Read
-* [hooks api](https://reactjs.org/docs/hooks-overview.html)
-* [effects hook](https://reactjs.org/docs/hooks-effect.html)
-
-## Skim
-* [global state management with hooks](https://blog.usejournal.com/global-state-management-with-react-hooks-5e453468c5bf)
+* [async actions](https://redux.js.org/advanced/asyncactions)
+* [redux thunk](https://alligator.io/redux/redux-thunk/)
+* [suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8) (alpha/beta)
 
 ## Watch
-* [making sense of hooks](https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889)
+* [dan abramov on suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4)
 
 ## Bookmark
-* [use hooks](https://usehooks.com/)
-* [hooks list](https://github.com/rehooks/awesome-react-hooks)
-* [hooks api reference](https://reactjs.org/docs/hooks-reference.html)
-
-
+* [thunk middleware](https://github.com/reduxjs/redux-thunk)
 
 
 

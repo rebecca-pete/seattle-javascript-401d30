@@ -1,12 +1,11 @@
-# Hooks API
+# Remote APIs
 
 ## Learning Objectives
 
 **Students will be able to ...**
-
-* Use the Hooks API to manage state in a functional component
-* Interact with Context using Hooks
-* Create custom hooks
+* Understand and implement `thunk` middleware
+* Perform asynchronous redux actions
+* Take advantage of lifecycle hooks
 
 ## Outline
 * :05 **Housekeeping/Recap**
@@ -18,103 +17,55 @@
 * Break
 * :60 **Main Topic**
 
+## UI Concept:
+* `<List />` component
 
-### Hooks
+## Main Topic:
+Using Redux actions to connect to remote APIs via Thunk Middleware
 
-React hooks allow to to easily create and manage state in a **functional** component.
-
-Hooks are JavaScript functions, but they impose additional rules:
-
-* Hooks must be named with a `use` prefix (i.e. `useFishingPole`)
-* Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions.
-* Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks — your own custom Hooks. We’ll learn about them in a moment.)
-
-**Built In Hooks**
-
-`useState()` 
-
-Returns a getter and setter for your state value
+Normally, action generators return a function, like this:
 
 ```javascript
- import React from 'react';
- import { useState } from 'react';
- 
- function Counter() {
-   const [clicks, setClicks] = useState(0);
- 
-   return (
-     <div>
-       <h2>Button has been clicked {clicks} time(s)</h2>
-       <button type="button" onClick={() => setClicks(clicks + 1)}>
-         Update Count
-       </button>
-     </div>
-   );
- }
- 
- export default Counter;
-```
-
-`useContext()` 
-
-Returns and provides access to whatever your context provider exports
-
-In this example, our context provider gives us a `title` property and a `changeTitleTo()` method that we can call. This is much easier than referencing the context variable inline as you normally would.
-
-Note -- the context API is still critically important even with this hook available. Not every React shop is using hooks, so know both ways.
-
-```javascript
-import React from 'react';
-import faker from 'faker';
-import { useContext } from 'react';
-import { SettingsContext } from './settings/context';
-
-function Counter() {
-  const context = useContext(SettingsContext);
-
-  return (
-    <div>
-      <h2>{context.title}</h2>
-      <button
-        type="button"
-        onClick={() => context.changeTitleTo(faker.company.companyName())}
-      >
-        Change Title
-      </button>
-    </div>
-  );
-}
-
-export default Counter;
-
-```
-
-`useReducer()` 
-
-An alternative to useState. Accepts a reducer of type (state, action) => newState, and returns the current state paired with a dispatch method. (If you’re familiar with Redux, you already know how this works.)
-
-```javascript
-const initialState = {count: 0};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return {count: state.count + 1};
-    case 'decrement':
-      return {count: state.count - 1};
-    default:
-      throw new Error();
+const get = (payload) => {
+  return {
+    type: 'GET',
+    payload: payload
   }
 }
-
-function Counter({initialState}) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <>
-      Count: {state.count}
-      <button onClick={() => dispatch({type: 'increment'})}>+</button>
-      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
-    </>
-  );
-}
 ```
+
+But often, you'll need your actions to do some asynchronous action before you dispatch it to the reducer. For example, you may need to get something from a remote api.
+
+In this case, we want to set it up like this, where the action you dispatch from your React App returns a function, not an acual action object, which is what Redux **expects** and **requires**
+
+```javascript
+let api = 'https://api.mockable.io/api/v1/stuff';
+
+export const get = () => dispatch => {
+  return utils.fetchData(api).then(records => {
+    dispatch(getAction(records));
+  });
+};
+
+const getAction = payload => {
+  return {
+    type: 'GET',
+    payload: payload,
+  };
+};
+```
+
+So, we will implement a new piece of middleware, called a "thunk", which inspects every dispatched action and then either lets it go through (in the case of a normal action that returns an object) or it processes the function and then dispatches what that function returns.
+
+Notice in the example above, that the function we ran for the action is curried, and receives `dispatch()`, which it calls with the payload it got from the server.
+
+**What does thunk middleware look like?**
+
+```javascript
+export default store => next => action =>
+  typeof action === 'function'
+    ? action(store.dispatch, store.getState)
+    : next(action);
+```
+
+At its base level, this is all we really need.  However, we're going to be using the `redux-thunk` npm module in our production applications, as it provides more stability and error checking for us.

@@ -1,4 +1,4 @@
-# Reading: Remote APIs
+# Reading: Socket.io Client
 
 Below is a collection of resources of varying types and lengths which describe the topics for the upcoming lecture.  As you go through the readings each day, you'll find that certain sources work better for your reading and learning style. Focus on those, but also branch out and consume the material in different forms.
 
@@ -10,15 +10,13 @@ Wiki Entry Ideas:
 * Notes in outline form
 
 ## Read
-* [async actions](https://redux.js.org/advanced/asyncactions)
-* [redux thunk](https://alligator.io/redux/redux-thunk/)
-* [suspense](https://blog.logrocket.com/async-rendering-in-react-with-suspense-5d0eaac886c8) (alpha/beta)
-
-## Watch
-* [dan abramov on suspense](https://www.youtube.com/watch?v=6g3g0Q_XVb4)
+* [socket.io + react](https://medium.com/dailyjs/combining-react-with-socket-io-for-real-time-goodness-d26168429a34)
+* [socket.io with react and express](https://www.valentinog.com/blog/socket-io-node-js-react/)
 
 ## Bookmark
-* [thunk middleware](https://github.com/reduxjs/redux-thunk)
+* [socket.io docs](https://socket.io/)
+* [socket.io client library](https://www.npmjs.com/package/socket.io-client)
+* [socket.io react library](https://www.npmjs.com/package/socket.io-react)
 
 
 
