@@ -1,6 +1,6 @@
 # Application State
 
-## Learning Objectives
+## Learning Objectives 
 
 **Students will be able to ...**
 
