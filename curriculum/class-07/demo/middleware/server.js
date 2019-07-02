@@ -8,7 +8,7 @@ const logger = require('./logger.js');
 let app = express();
 
 // Here is some global express middleware for parsing data
-// Because we define it with no "route" at the app level, it runs on every route
+// Because we define it with no "route" at the app level, it runs on every route 
 app.use(express.json());
 
 // Here, we define some middlware called "logger" that we imported in.
